@@ -11,6 +11,7 @@ image:
 
 secret:
   password:
+    type: plain
     name: jenkins-secret
     value: PUT_YOUR_BASE_64_PASS
 
