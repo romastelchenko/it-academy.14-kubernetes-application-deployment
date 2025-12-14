@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  jenkins-k8s-by-helm:
+  - apiVersion: v2
+    appVersion: v1
+    created: "2025-12-14T01:15:34.719356474+01:00"
+    description: A Helm chart for jenkins on Kubernetes
+    digest: c041a271e9112e2dda361edfdf427f4c4e790eb5e233283521c6377e1bec735a
+    name: jenkins-k8s-by-helm
+    type: application
+    urls:
+    - https://romastelchenko.github.io/it-academy.14-kubernetes-application-deployment/helm-releases/jenkins-k8s-by-helm-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-12-14T01:15:34.718843407+01:00"
