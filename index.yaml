@@ -3,7 +3,17 @@ entries:
   jenkins-k8s-by-helm:
   - apiVersion: v2
     appVersion: v1
-    created: "2025-12-14T02:00:16.257007881+01:00"
+    created: "2025-12-14T05:33:39.38116249+01:00"
+    description: A Helm chart for jenkins on Kubernetes
+    digest: ee0ef12e2825556c7f9ec3b8b7d0bd32935e657756c8c729da6a5e1384d07b7c
+    name: jenkins-k8s-by-helm
+    type: application
+    urls:
+    - https://romastelchenko.github.io/it-academy.14-kubernetes-application-deployment/helm-releases/jenkins-k8s-by-helm-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: v1
+    created: "2025-12-14T05:33:39.380590205+01:00"
     description: A Helm chart for jenkins on Kubernetes
     digest: 012afe923e791a5910c84406b45624f78108002848a9514a0022c9c6cacc2f81
     name: jenkins-k8s-by-helm
@@ -13,7 +23,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: v1
-    created: "2025-12-14T02:00:16.256403885+01:00"
+    created: "2025-12-14T05:33:39.380056054+01:00"
     description: A Helm chart for jenkins on Kubernetes
     digest: dd1a3944fcca055e2e1710f5221204c40849973c9c5ecf42449875fc2edecdc8
     name: jenkins-k8s-by-helm
@@ -23,7 +33,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: v1
-    created: "2025-12-14T02:00:16.255782709+01:00"
+    created: "2025-12-14T05:33:39.379555776+01:00"
     description: A Helm chart for jenkins on Kubernetes
     digest: afc6014c30fbab2398bec340047446921c9aaf98c8731ca2cc9c0d7c1e4806f1
     name: jenkins-k8s-by-helm
@@ -33,7 +43,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: v1
-    created: "2025-12-14T02:00:16.255036445+01:00"
+    created: "2025-12-14T05:33:39.379003326+01:00"
     description: A Helm chart for jenkins on Kubernetes
     digest: c041a271e9112e2dda361edfdf427f4c4e790eb5e233283521c6377e1bec735a
     name: jenkins-k8s-by-helm
@@ -41,4 +51,4 @@ entries:
     urls:
     - https://romastelchenko.github.io/it-academy.14-kubernetes-application-deployment/helm-releases/jenkins-k8s-by-helm-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-14T02:00:16.254187094+01:00"
+generated: "2025-12-14T05:33:39.378251547+01:00"
