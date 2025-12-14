@@ -25,7 +25,11 @@ spec:
               for conf in /jobs-configs/*.config.xml; do
                 job="$(basename "$conf" .config.xml)"
                 job_dir="/var/jenkins_home/jobs/$job"
-                [[ ! -f "$job_dir/config.xml" ]] && mkdir -p "$job_dir" && cp "$conf" "$job_dir/config.xml" && chown -R 1000:1000 "$job_dir"
+                if [ ! -f "$job_dir/config.xml" ]; then
+                  mkdir -p "$job_dir"
+                  cp "$conf" "$job_dir/config.xml" 
+                  chown -R 1000:1000 "$job_dir"
+                fi
               done
           volumeMounts:
             - name: jenkins-config
