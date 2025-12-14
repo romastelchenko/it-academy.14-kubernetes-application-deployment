@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: basic-security
+data:
+  basic-security.groovy: |
+    {{- .Files.Get "configs/basic-security.groovy" | nindent 4 }}

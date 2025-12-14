@@ -1,0 +1,48 @@
+replicaCount: 1
+
+service:
+  name: jenkins-by-helm
+  httpPort: 8080
+  jnlpPort: 50000
+
+image:
+  repository: jfrog.it-academy.by/public/jenkins-ci:stelchenko_1811_1
+  pullPolicy: IfNotPresent
+
+secret:
+  password:
+    name: jenkins-secret
+    value: {PUT_YOUR_BASE_64_PASS}
+
+env:
+  JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+  CASC_JENKINS_CONFIG: /var/jenkins_home/casc_configs/jenkins.yaml
+
+rbac:
+  ClusterRoleName: cluster-admin
+  ServiceAccountName: default
+
+resources:
+  requests:
+    cpu: 2
+    memory: 2Gi
+  limits:
+    cpu: 3
+    memory: 3Gi
+
+ingress:
+  enabled: true
+  className: nginx
+  host: jenkins-by-helm.k8s-13.sa
+  path: /
+  pathType: Prefix
+
+nfs:
+  server: 192.168.37.105
+  path: /mnt/IT-Academy/nfs-data/sa2-33-25/romanstelchenko/jenkins-by-helm
+
+
+jobs:
+  enabled: true
+  configs:
+    - configs/jobs/test/config.xml

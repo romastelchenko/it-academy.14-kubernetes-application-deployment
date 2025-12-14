@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.service.name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.service.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service.name }}
+    spec:
+      {{- if .Values.jobs.enabled }}
+      initContainers:
+        - name: copy-jobs-configs
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - |
+              for conf in /jobs-configs/*.config.xml; do
+                job="$(basename "$conf" .config.xml)"
+                job_dir="/var/jenkins_home/jobs/$job"
+                [[ ! -f "$job_dir/config.xml" ]] && mkdir -p "$job_dir" && cp "$conf" "$job_dir/config.xml" && chown -R 1000:1000 "$job_dir"
+              done
+          volumeMounts:
+            - name: jenkins-config
+              mountPath: /var/jenkins_home
+            - name: jenkins-jobs-config
+              mountPath: /jobs-configs
+      {{- end }}
+      containers:
+        - name: {{ .Values.service.name }}
+          image: {{ .Values.image.repository }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.password.name }}
+                  key: password
+            - name: JAVA_OPTS
+              value: {{ .Values.env.JAVA_OPTS | quote }}
+            - name: CASC_JENKINS_CONFIG
+              value: {{ .Values.env.CASC_JENKINS_CONFIG }}
+          ports:
+            - name: http-port
+              containerPort: {{ .Values.service.httpPort }}
+            - name: jnlp-port
+              containerPort: {{ .Values.service.jnlpPort }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: jenkins-auth-config
+              mountPath: /var/jenkins_home/init.groovy.d/basic-security.groovy
+              subPath: basic-security.groovy
+            - name: jenkins-config-yaml
+              mountPath: /var/jenkins_home/casc_configs/jenkins.yaml
+              subPath: jenkins.yaml
+            - name: jenkins-config
+              mountPath: /var/jenkins_home
+      volumes:
+        - name: jenkins-auth-config
+          configMap:
+            name: basic-security
+        - name: jenkins-config-yaml
+          configMap:
+            name: jenkins-config
+        - name: jenkins-config
+          nfs:
+            server: {{ .Values.nfs.server }}
+            path: {{ .Values.nfs.path }}
+        {{- if .Values.jobs.enabled }}
+        - name: jenkins-jobs-config
+          configMap:
+            name: jenkins-jobs
+        {{- end }}

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-config
+data:
+  jenkins.yaml: |
+    {{- tpl (.Files.Get "configs/jenkins.yaml") . | nindent 4 }}
