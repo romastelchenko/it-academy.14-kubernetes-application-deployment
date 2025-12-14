@@ -12,7 +12,7 @@ image:
 secret:
   password:
     name: jenkins-secret
-    value: {PUT_YOUR_BASE_64_PASS}
+    value: PUT_YOUR_BASE_64_PASS
 
 env:
   JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
